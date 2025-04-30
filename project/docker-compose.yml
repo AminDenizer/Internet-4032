@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  udp-server:
+    build:
+      context: ./udp_server
+    ports:
+      - "12345:12345/udp"
+    restart: unless-stopped
+
+  tcp-server:
+    build:
+      context: ./tcp_server
+    ports:
+      - "23456:23456/tcp"
+    restart: unless-stopped
