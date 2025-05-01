@@ -2,7 +2,7 @@
 import socket
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('localhost', 23456)
+server_address = ('0.0.0.0', 23456)
 
 server_socket.bind(server_address)
 server_socket.listen(1)  # maximum parallel connection 
