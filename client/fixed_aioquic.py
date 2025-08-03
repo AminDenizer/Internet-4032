@@ -43,12 +43,11 @@ async def connect(
 
     # create socket
     if getattr(socket, "has_ipv6", False):
-        sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
         try:
+            sock = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
             sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
             sock.bind(("::", local_port, 0, 0))
         except OSError:
-            sock.close()
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             sock.bind(("", local_port))
     else:

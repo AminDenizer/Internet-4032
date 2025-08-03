@@ -1,11 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import socket
-import ssl
 import asyncio
 import threading
-from aioquic.asyncio import connect
-from aioquic.quic.configuration import QuicConfiguration
+from .quic_base_client import send_quic_message
 
 class App(tk.Tk):
     def __init__(self):
@@ -89,19 +87,9 @@ class App(tk.Tk):
         threading.Thread(target=self._run_quic_client, args=(address, message)).start()
 
     def _run_quic_client(self, address, message):
-        asyncio.run(self._async_quic_client(address, message))
-
-    async def _async_quic_client(self, address, message):
         try:
-            configuration = QuicConfiguration(is_client=True)
-            configuration.verify_mode = ssl.CERT_NONE
-
-            async with connect(address, 4433, configuration=configuration) as client:
-                reader, writer = await client.create_stream()
-                writer.write(message.encode())
-                writer.write_eof()
-                response = await reader.read()
-                self.response_text.insert(tk.END, response.decode())
+            response = asyncio.run(send_quic_message(address, 4433, message))
+            self.response_text.insert(tk.END, response)
         except Exception as e:
             self.response_text.insert(tk.END, f"Error: {e}")
 

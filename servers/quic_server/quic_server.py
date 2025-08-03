@@ -12,7 +12,7 @@ class UppercaseProtocol(QuicConnectionProtocol):
             self.send_stream_data(event.stream_id, response, end_stream=True)
 
 async def main():
-    configuration = QuicConfiguration(is_client=False)
+    configuration = QuicConfiguration(is_client=False, alpn_protocols=["hq-29"])
     configuration.load_cert_chain("server.crt", "server.key")
     await serve(
         "0.0.0.0",

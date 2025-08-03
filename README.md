@@ -80,6 +80,24 @@ From the GUI, you can:
 
 ---
 
+## ✅ Automated Testing
+
+This project includes an automated test suite using `pytest`. The tests will start the servers, run tests against them, and then shut them down.
+
+### 1. Install Test Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the Tests
+
+```bash
+pytest
+```
+
+---
+
 ## ✅ Testing the Servers (Command Line)
 
 You can also test the servers from the command line.
