@@ -3,14 +3,21 @@ version: '3.8'
 services:
   udp-server:
     build:
-      context: ./udp_server
+      context: servers/udp_server
     ports:
       - "12345:12345/udp"
     restart: unless-stopped
 
   tcp-server:
     build:
-      context: ./tcp_server
+      context: servers/tcp_server
     ports:
       - "23456:23456/tcp"
+    restart: unless-stopped
+
+  quic-server:
+    build:
+      context: servers/quic_server
+    ports:
+      - "4433:4433/udp"
     restart: unless-stopped
